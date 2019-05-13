@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
+let Post = require('../models/post')
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.send('get index');
+  
+  Post.find({}, (err, posts)=>{
+    console.log(posts);
+    res.render('post/index', {
+      posts:posts
+    });
+  });
 });
 
 module.exports = router;

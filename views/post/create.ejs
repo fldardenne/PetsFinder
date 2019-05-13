@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>y</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>index</h1>
+
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
+    <a href="/post">Post</a>
+    <a href="/user">Account</a>
+
+    <form method="POST" action="/post" enctype="multipart/form-data">
+
+        <input type="file" accept="image/*" name="thumbnail" >
+        
+
+        <div class="field">
+            <label>Author</label>
+            <input name="author" required></textarea>
+        </div>
+      
+        <div class="field">
+            <label>Petname</label>
+            <input name="petname" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Latitude</label>
+            <input name="latitude" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Longitude</label>
+            <input name="longitude" required></textarea>
+        </div>
+        
+
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Confirm password</label>
+            <input type="password" name="password" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Date of the lost</label>
+            <input type="date" id="start" name="date_lost"
+            max="2018-12-31">
+        </div>
+
+        <div class="field">
+            <label>Owner name</label>
+            <input name="owner" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Phone number</label>
+            <input name="phone" required></textarea>
+        </div>
+
+        <div class="field">
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="80" required></textarea>
+        </div>
+
+        <div>
+            <input type="radio" id="found" name="found" value="false"
+                   checked>
+            <label for="huey">I lost my animal</label>
+          </div>
+          
+          <div>
+            <input type="radio" id="dewey" name="found" value="true">
+            <label for="dewey">I found this animal</label>
+          </div>
+
+          <div class="field">
+            <label>Tags separated by space</label>
+            <textarea name="tags" rows="4" cols="80" required></textarea>
+        </div>
+       
+          <div class="field">
+              <button class="btn">Submit</button>
+          </div>
+      </form>
+  </body>
+</html>

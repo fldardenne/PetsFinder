@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>y</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>index</h1>
+
+    <a href="/auth/login">Login</a>
+    <a href="/auth/register">Register</a>
+    <a href="/post">Post</a>
+    <a href="/user">Account</a>
+
+    
+    <% posts.forEach((post) => { %>
+      <p> <%= post.author %> </p>
+      <%= post.createdAt %>
+      <%= post.email %>
+      <%= post.phone %>
+      <%= post.description %>
+      <% if(post.found){ %>
+        <p> Lost </p>
+      <% }else{ %>
+        <p> found </p>
+      <% } %>
+
+      <img src="<%= post.thumbnail %>" alt="">
+      <hr>
+    <% }); %>
+
+  </body>
+</html>

@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>y</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>index</h1>
+    <head>
+        <% include ../layout/meta %>
+    </head>
 
-    <a href="/auth/login">Login</a>
-    <a href="/auth/register">Register</a>
-    <a href="/post">Post</a>
-    <a href="/user">Account</a>
+    <body>
+        <% include ../layout/header %>
 
-    
-    <% posts.forEach((post) => { %>
-      <p> <%= post.author %> </p>
-      <%= post.createdAt %>
-      <%= post.email %>
-      <%= post.phone %>
-      <%= post.description %>
-      <% if(post.found){ %>
-        <p> Lost </p>
-      <% }else{ %>
-        <p> found </p>
-      <% } %>
+        <div class="container">
+            <h1>
+                Posts
+                <a class="btn btn-success float-right" href="/post/create" role="button">Add post</a>
+            </h1>
 
-      <img src="<%= post.thumbnail %>" alt="">
-      <hr>
-    <% }); %>
+            <hr>
 
-  </body>
+            <div class="alert alert-secondary" role="alert">
+                There are no posts to display.
+                Do you want to <a href="/post/create">add a post</a> ?
+            </div>
+
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Updated at</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>
+                            <!-- <span class="badge badge-success">Found</span> -->
+                            <span class="badge badge-danger">Lost</span>
+                        </td>
+                        <td>Otto</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>
+                            <a class="btn btn-link" href="#" role="button">Edit</a>
+                            <a class="btn btn-link" href="#" role="button">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>

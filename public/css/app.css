@@ -1,0 +1,5 @@
+body { padding-top: 56px; }
+h1 > a { margin-top: 5px; }
+th, td { vertical-align: middle !important; }
+
+.container { margin-top: 24px; }

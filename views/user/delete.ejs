@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../layout/meta %>
+    </head>
+
+    <body>
+        <% include ../layout/header %>
+
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-6 col-md-8">
+                    <h1>Delete account</h1>
+
+                    <hr>
+
+                    <form method="POST" action="#">
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert">
+                                Are you sure you want to delete your account ?
+                                This action is <strong>irrevocable</strong>.
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </body>
+</html>

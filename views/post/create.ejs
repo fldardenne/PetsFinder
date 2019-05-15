@@ -1,98 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>y</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>index</h1>
+    <head>
+        <% include ../layout/meta %>
+    </head>
 
-    <a href="/auth/login">Login</a>
-    <a href="/auth/register">Register</a>
-    <a href="/post">Post</a>
-    <a href="/user">Account</a>
+    <body>
+        <% include ../layout/header %>
 
-    <form method="POST" action="/post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-6 col-md-8">
+                    <h1>Add post</h1>
 
-        <input type="file" accept="image/*" name="thumbnail" >
-        
+                    <hr>
 
-        <div class="field">
-            <label>Author</label>
-            <input name="author" required></textarea>
+                    <form method="POST" action="/post/create" enctype="multipart/form-data">
+                        <fieldset>
+                            <div class="form-group row">
+                                <label for="pets_name" class="col-sm-3 col-form-label">Status</label>
+                                <div class="col-sm-9 my-auto">
+                                    <select class="form-control">
+                                        <option>Lost</option>
+                                        <option>Found</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <hr>
+
+                        <fieldset>
+                            <div class="form-group row">
+                                <label for="pets_name" class="col-sm-3 col-form-label">Specie</label>
+                                <div class="col-sm-9 my-auto">
+                                    <select class="form-control">
+                                        <option>Dog</option>
+                                        <option>Cat</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="pet_picture" class="col-sm-3 col-form-label">Picture</label>
+
+                                <div class="col-sm-9 my-auto">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="pet_picture" accept="image/*">
+                                        <label class="custom-file-label" for="pet_picture">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="pet_name" class="col-sm-3 col-form-label">Name</label>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control" id="pet_name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="pet_description" class="col-sm-3 col-form-label">Description</label>
+                                <div class="col-sm-9 my-auto">
+                                    <textarea class="form-control" id="pet_description" rows="6"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="location" class="col-sm-3 col-form-label">Last seen (location)</label>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control" id="location" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="date" class="col-sm-3 col-form-label">Last seen (date)</label>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control" id="date" required>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <hr>
+
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      
-        <div class="field">
-            <label>Petname</label>
-            <input name="petname" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Latitude</label>
-            <input name="latitude" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Longitude</label>
-            <input name="longitude" required></textarea>
-        </div>
-        
-
-        <div class="field">
-            <label>Email</label>
-            <input type="email" name="email" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Password</label>
-            <input type="password" name="password" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Confirm password</label>
-            <input type="password" name="password" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Date of the lost</label>
-            <input type="date" id="start" name="date_lost"
-            max="2018-12-31">
-        </div>
-
-        <div class="field">
-            <label>Owner name</label>
-            <input name="owner" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Phone number</label>
-            <input name="phone" required></textarea>
-        </div>
-
-        <div class="field">
-            <label>Description</label>
-            <textarea name="description" rows="4" cols="80" required></textarea>
-        </div>
-
-        <div>
-            <input type="radio" id="found" name="found" value="false"
-                   checked>
-            <label for="huey">I lost my animal</label>
-          </div>
-          
-          <div>
-            <input type="radio" id="dewey" name="found" value="true">
-            <label for="dewey">I found this animal</label>
-          </div>
-
-          <div class="field">
-            <label>Tags separated by space</label>
-            <textarea name="tags" rows="4" cols="80" required></textarea>
-        </div>
-       
-          <div class="field">
-              <button class="btn">Submit</button>
-          </div>
-      </form>
-  </body>
+    </body>
 </html>

@@ -16,12 +16,15 @@ const upload = multer({
 }).single('thumbnail');
 // end upload image
 
+router.get('/', (req, res) => {
+    res.render('post/index');
+});
 
-router.get('/', (req,res) =>{
+router.get('/create', (req, res) => {
     res.render('post/create');
 });
 
-router.post('/', (req,res) => {
+router.post('/create', (req,res) => {
     upload(req,res,(err) => {
         if(err){
             res.json(err);
@@ -44,21 +47,21 @@ router.post('/', (req,res) => {
         post.save(function(err) {
             console.log("saved");
             if (err) res.json(err);
-            
+
             res.redirect('/');
         });
 
     });
 
 
-    
+
     /**
-     * 
+     *
      var post = new Post();
 
     console.log(req.file);
     console.log(req);
-    
+
     post.author = req.body.author;
     post.petname = req.body.petname;
     post.location = [req.body.latitude,req.body.longitude]
@@ -75,12 +78,12 @@ router.post('/', (req,res) => {
     post.save(function(err) {
         console.log("saved");
         if (err) res.json(err);
-        
+
         res.redirect('/');
     });
      */
-    
-    
+
+
 });
 
 module.exports = router;

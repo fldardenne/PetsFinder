@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../layout/meta %>
+    </head>
+
+    <body>
+        <% include ../layout/header %>
+
+        <% posts.forEach((post) => { %>
+            <p> <%= post.author %> </p>
+            <%= post.createdAt %>
+            <%= post.email %>
+            <%= post.phone %>
+            <%= post.description %>
+            <% if(post.found){ %>
+              <p> Lost </p>
+            <% }else{ %>
+              <p> found </p>
+            <% } %>
+
+            <img src="<%= post.thumbnail %>" alt="">
+            <hr>
+        <% }); %>
+    </body>
+</html>

@@ -7,13 +7,14 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const session = require('express-session');
 
-
-
-
-var indexRouter = require('./routes/index');
-var userRouter = require('./routes/user');
-var authRouter = require('./routes/auth');
+// Routes
+var homeRouter = require('./routes/home');
 var postRouter = require('./routes/post');
+var authRouter = require('./routes/auth');
+var userRouter = require('./routes/user');
+var emailRouter = require('./routes/email');
+var passwordRouter = require('./routes/password');
+var phoneRouter = require('./routes/phone');
 
 var app = express();
 
@@ -29,10 +30,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'fakepassword', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
-app.use('/auth', authRouter);
+app.use('/', homeRouter);
 app.use('/post', postRouter);
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/email', emailRouter);
+app.use('/password', passwordRouter);
+app.use('/phone', phoneRouter);
 
 
 // catch 404 and forward to error handler

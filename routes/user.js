@@ -2,12 +2,23 @@ let express = require('express');
 let router = express.Router();
 
 
-router.get('/', (req,res) =>{
-    res.send('<h1> Return something, home </h1>');
-});
+router.get('/register', (req, res) => {
+    res.render('user/create');
+})
 
-router.post('/', (req,res) => {
-    res.send('account post')
-});
+router.post('/register', (req, res) => {
+    user = new User();
+    user.mail = req.body.email;
+    user.setPassword(req.body.password);
+
+    user.save((err) => {
+        res.redirect('/');
+    })
+
+})
+
+router.get('/delete', (req, res) => {
+    res.render('user/delete');
+})
 
 module.exports = router;

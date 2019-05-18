@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const session = require('express-session');
+var sessionverif = require('./middleware/sessionverif')
 
 // Routes
 var homeRouter = require('./routes/home');
@@ -30,6 +31,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'fakepassword', resave: false, saveUninitialized: true }));
 
+// Middleware protecting route that require authentification
+app.use('/post', sessionverif.sessionRedirect);
+app.use('/user', sessionverif.sessionRedirect);
+app.use('/email', sessionverif.sessionRedirect);
+app.use('/password', sessionverif.sessionRedirect);
+app.use('/phone', sessionverif.sessionRedirect);
+
+//  Route
 app.use('/', homeRouter);
 app.use('/post', postRouter);
 app.use('/auth', authRouter);
@@ -37,6 +46,8 @@ app.use('/user', userRouter);
 app.use('/email', emailRouter);
 app.use('/password', passwordRouter);
 app.use('/phone', phoneRouter);
+
+
 
 
 // catch 404 and forward to error handler

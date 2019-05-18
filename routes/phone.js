@@ -2,7 +2,9 @@ let express = require('express');
 let router = express.Router();
 
 router.get('/edit', (req, res) => {
-    res.render('phone/edit')
+    res.render('phone/edit', {
+        session: req.session
+    })
 })
 
 router.post('/edit', (req, res) => {

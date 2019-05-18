@@ -16,19 +16,14 @@ const upload = multer({
 }).single('thumbnail');
 // end upload image
 
+// The user posts list
 router.get('/', (req, res) => {
-    if(req.session.mail){
-        res.render('post/index', {
-          session: req.session
-        });
-    }else{
-        req.session.redirect = '/post';
-        req.session.save((err) => {
-          res.redirect('/auth/login');
-        })
-    }
+    res.render('post/index', {
+        session: req.session
+    });
 });
 
+// Post creation view
 router.get('/create', (req, res) => {
     res.render('post/create', {
         session: req.session
@@ -59,9 +54,7 @@ router.post('/create', (req,res) => {
             console.log("saved");
             if (err) res.json(err);
 
-            res.redirect('/',{
-                session: req.session
-            });
+            res.redirect('/');
         });
 
     });

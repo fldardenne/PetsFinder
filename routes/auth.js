@@ -9,9 +9,6 @@ router.get('/login', (req, res) => {
         session: req.session
     })
 })
-
-
-
   
 router.post('/login', (req, res) => {
     User.findOne({mail: req.body.email}, (err,doc_acc) => {
@@ -22,7 +19,10 @@ router.post('/login', (req, res) => {
                     if(req.session.redirect){
                         var temp = req.session.redirect;
                         req.session.redirect = "";
-                        res.redirect(req.session.redirect);
+                        req.session.save( (err) => {
+                            res.redirect(temp);
+                        })
+                        
                     }else{
                         res.redirect('/');
                     }
@@ -34,6 +34,29 @@ router.post('/login', (req, res) => {
       
           }); 
     })
+})
+
+router.get('/register', (req, res) => {
+    res.render('user/create',{
+        session: req.session
+    });
+})
+
+router.post('/register', (req, res) => {
+    user = new User();
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+
+        user.password = hash;
+        user.mail = req.body.email;
+        user.phone = req.body.phone;
+    
+        user.save((err) => {
+            req.session.mail = req.body.email;
+            req.session.save( (err) => {
+                res.redirect('/');
+            })
+        })
+    });
 })
 
 router.get('/logout', (req, res) => {

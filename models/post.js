@@ -34,16 +34,8 @@ var postSchema = new mongoose.Schema({
         type: String,
     },
     location: {
-                type: [Number, Number],
-                index: '2d'
-            
+        type: String,     
     },
-    email: {
-        type: String,
-        index: true,
-        unique: true
-    },
-    password: String,
     date:{
         type: Date
     },
@@ -51,19 +43,13 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-
     updatedAt: {
         type:Date,
         default:Date.now
     },
-    owner_name: String,
-    phone: String, 
     description: String,
-    img:{
-        type:[String]
-    },
     found:Boolean,
-    tags: [String],
+    tags: String,
     
   
 });

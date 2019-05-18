@@ -13,10 +13,14 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
+
+            <% if (session.mail) { %>
             <li class="nav-item">
                 <a class="nav-link" href="/post">Posts</a>
             </li>
+            <% } %>
 
+            <% if (!session.mail) { %>
             <li class="nav-item">
                 <a class="nav-link" href="/user/register">Register</a>
             </li>
@@ -24,7 +28,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/auth/login">Login</a>
             </li>
+            <% } %>
 
+            <% if (session.mail) { %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
 
@@ -42,6 +48,7 @@
                     <a class="dropdown-item" href="#">Logout</a>
                 </div>
             </li>
+            <% } %>
         </ul>
     </div>
 </nav>

@@ -6,7 +6,6 @@
 
     <body>
         <% include ../layout/header %>
-
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-lg-6 col-md-8">
@@ -19,7 +18,7 @@
                             <div class="form-group row">
                                 <label for="pets_name" class="col-sm-3 col-form-label">Status</label>
                                 <div class="col-sm-9 my-auto">
-                                    <select class="form-control">
+                                    <select class="form-control" name="found">
                                         <option>Lost</option>
                                         <option>Found</option>
                                     </select>
@@ -33,7 +32,7 @@
                             <div class="form-group row">
                                 <label for="pets_name" class="col-sm-3 col-form-label">Specie</label>
                                 <div class="col-sm-9 my-auto">
-                                    <select class="form-control">
+                                    <select class="form-control" name="tags">
                                         <option>Dog</option>
                                         <option>Cat</option>
                                     </select>
@@ -42,40 +41,46 @@
                             
                             <div class="form-group row">
                                 <label for="pet_picture" class="col-sm-3 col-form-label">Picture</label>
-
+                                <input type="file" accept="image/*" name="thumbnail">
+                                <!--
+                                A corriger, ne fonctionne pas 
+                                
                                 <div class="col-sm-9 my-auto">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="pet_picture" accept="image/*">
+                                        
+                                        
+                                        <input type="file" class="custom-file-input" id="pet_picture" accept="image/*" name="thumbnail">
                                         <label class="custom-file-label" for="pet_picture">Choose file</label>
                                     </div>
                                 </div>
+                                -->
                             </div>
 
                             <div class="form-group row">
                                 <label for="pet_name" class="col-sm-3 col-form-label">Name</label>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control" id="pet_name" required>
+                                    <input type="text" class="form-control" id="pet_name" name="petname" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="pet_description" class="col-sm-3 col-form-label">Description</label>
                                 <div class="col-sm-9 my-auto">
-                                    <textarea class="form-control" id="pet_description" rows="6"></textarea>
+                                    <textarea class="form-control" id="pet_description" name="description" rows="6"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="location" class="col-sm-3 col-form-label">Last seen (location)</label>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control" id="location" required>
+                                    <input type="text" class="form-control" id="location" name="location" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="date" class="col-sm-3 col-form-label">Last seen (date)</label>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="date" class="form-control" id="date" required>
+                                    <input type="date" class="form-control" id="date" name="date_lost" required>
                                 </div>
                             </div>
                         </fieldset>
@@ -91,5 +96,9 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=***REMOVED***&"></script>
+        <script type="text/javascript" src="/js/autocomplete.js"></script>
+
     </body>
 </html>

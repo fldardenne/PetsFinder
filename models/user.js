@@ -7,6 +7,12 @@ var userSchema = new mongoose.Schema({
         index: true,
         unique: true
     },
+    username: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
     password: String,
 
     createdAt: {
@@ -21,21 +27,6 @@ var userSchema = new mongoose.Schema({
   
 });
 
-userSchema.methods.setPassword = function(strPassword){
-    bcrypt.hash(strPassword, 10, function(err, hash) {
-        this.password = hash;
-      });
-}
-
-userSchema.methods.validatePassword = function(strPassword){
-    bcrypt.compare(strPassword, this.password, function(err, res) {
-        if(res) {
-            return true;
-        } else {
-            return false;
-        } 
-      });
-}
 var User = mongoose.model('User', userSchema);
 
 module.exports = User;

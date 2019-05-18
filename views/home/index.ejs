@@ -8,18 +8,21 @@
         <% include ../layout/header %>
 
         <% posts.forEach((post) => { %>
-            <p> <%= post.author %> </p>
-            <%= post.createdAt %>
-            <%= post.email %>
-            <%= post.phone %>
-            <%= post.description %>
+            
+            <h3><%= post.petname %></h3>
+            <img src="<%= post.thumbnail %>" alt="" width="100" height="100"> <br>
+            Author: <%= post.author %> <br>
+            Date : <%= post.date %> <br>
+            Location :<%= post.location %><br>
+            Description : <%= post.description %><br>
+            Found or lost:
             <% if(post.found){ %>
-              <p> Lost </p>
+              Lost 
             <% }else{ %>
-              <p> found </p>
+              found
             <% } %>
-
-            <img src="<%= post.thumbnail %>" alt="">
+            <br>
+            Cat/Dogs: <%= post.tags %>
             <hr>
         <% }); %>
     </body>

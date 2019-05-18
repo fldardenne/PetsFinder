@@ -8,7 +8,8 @@ router.get('/', function(req, res) {
         console.log(posts);
         
         res.render('home/index', {
-            posts:posts
+            posts:posts,
+            session: req.session
         });
     });
 });

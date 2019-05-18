@@ -13,8 +13,8 @@ router.get('/delete', (req, res) => {
 
 router.post('/delete', (req,res) => {
     User.find({mail: req.session.mail}, (err, acc_doc) => {
-        Post.find({author:acc_doc}).remove().then(function(value) {
-            User.find({mail: req.session.mail}).remove().then(function(value){
+        Post.find({author:acc_doc}).deleteMany().then(function(value) {
+            User.find({mail: req.session.mail}).deleteOne().then(function(value){
                 req.session.mail = '';
                 req.session.save((err) => {
                     res.redirect('/');

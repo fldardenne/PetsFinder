@@ -12,27 +12,31 @@ router.get('/login', (req, res) => {
   
 router.post('/login', (req, res) => {
     User.findOne({mail: req.body.email}, (err,doc_acc) => {
-        bcrypt.compare(req.body.password, doc_acc.password, function(err, rescrypt) {
-            if(rescrypt) {
-                req.session.mail = req.body.email;
-                req.session.save( (err) => {
-                    if(req.session.redirect){
-                        var temp = req.session.redirect;
-                        req.session.redirect = "";
-                        req.session.save( (err) => {
-                            res.redirect(temp);
-                        })
-                        
-                    }else{
-                        res.redirect('/');
-                    }
-              });
-            } else {
-                console.log("\x1b[36m%s\x1b[0m", "[Auth] " + req.body.mail + " failed");
-                res.redirect('/');
-            }
-      
-          }); 
+        if (doc_acc == null){
+            res.redirect('/auth/login');
+        }else{
+            bcrypt.compare(req.body.password, doc_acc.password, function(err, rescrypt) {
+                if(rescrypt) {
+                    req.session.mail = req.body.email;
+                    req.session.save( (err) => {
+                        if(req.session.redirect){
+                            var temp = req.session.redirect;
+                            req.session.redirect = "";
+                            req.session.save( (err) => {
+                                res.redirect(temp);
+                            })
+                        }else{
+                            res.redirect('/');
+                        }
+                  });
+                } else {
+                    console.log("\x1b[36m%s\x1b[0m", "[Auth] " + req.body.mail + " failed");
+                    res.redirect('/auth/login');
+                }
+          
+            }); 
+        }
+        
     })
 })
 
@@ -49,6 +53,7 @@ router.post('/register', (req, res) => {
         user.password = hash;
         user.mail = req.body.email;
         user.phone = req.body.phone;
+        user.username = req.body.name;
     
         user.save((err) => {
             req.session.mail = req.body.email;

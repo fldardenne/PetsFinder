@@ -17,15 +17,13 @@
 • updated at
 **/
 var mongoose = require('mongoose');
+var user = require('./user')
 
 
 var postSchema = new mongoose.Schema({
-    author:{
-        type: String
-        /**
-         * type: mongoose.Schema.Types.ObjectId, ref: 'User'
-         */
-        
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     thumbnail: {
         type:String

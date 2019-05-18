@@ -13,12 +13,13 @@
                 <a class="btn btn-success float-right" href="/post/create" role="button">Add post</a>
             </h1>
 
+            <% if (post.length == 0) { %>
             <hr>
-
             <div class="alert alert-secondary" role="alert">
                 There are no posts to display.
                 Do you want to <a href="/post/create">add a post</a> ?
             </div>
+            <% } %>
 
             <table class="table table-borderless table-hover">
                 <thead>
@@ -27,25 +28,33 @@
                         <th scope="col">Status</th>
                         <th scope="col">Title</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Updated at</th>
+                        <th scope="col">Animal</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+                    <% post.forEach((post) => { %>
                     <tr>
                         <th scope="row">1</th>
                         <td>
-                            <!-- <span class="badge badge-success">Found</span> -->
-                            <span class="badge badge-danger">Lost</span>
+                            <% if(post.found){ %>
+                                <span class="badge badge-success">Found</span>
+                            <% }else{ %>
+                                <span class="badge badge-danger">Lost</span>
+                            <% } %>
                         </td>
-                        <td>Otto</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                        <td><%= post.petname %></td>
+                        <td><%= post.location %></td>
+                        <td><%= post.tags %></td>
                         <td>
-                            <a class="btn btn-link" href="#" role="button">Edit</a>
-                            <a class="btn btn-link" href="#" role="button">Delete</a>
+                            <a class="btn btn-link" href="/post/edit/<%=post.id%>" role="button">Edit</a>
+                            <a class="btn btn-link" href="/post/delete/<%=post.id%>" role="button">Delete</a>
                         </td>
                     </tr>
+                    <% }); %>
+            <hr>
+
+                    
                 </tbody>
             </table>
         </div>

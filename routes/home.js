@@ -17,7 +17,6 @@ router.get('/', function(req, res) {
                     temp.username = value.username;
                     temp.phone = value.phone;
                     temp.mail = value.mail;
-    
                     posts_g.push(temp);
                 })  
         });

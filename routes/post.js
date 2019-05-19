@@ -62,7 +62,10 @@ router.post('/create', (req,res) => {
             axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.body.location+'&key=be981c22e9ac4b68aa488575f6cfb34c')
             .then(response => {
                 coord = response.data.results[0].geometry;
-                post.coordinates = [coord.lng, coord.lat];
+                post.coordinates = {
+                    "type": "Point",
+                    "coordinates": [coord.lng, coord.lat]
+                };
                 post.save(function(err) {
                     console.log("saved");
                     if (err) res.json(err);
@@ -138,7 +141,10 @@ router.post('/edit/:postID', (req,res) => {
                 axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.body.location+'&key=be981c22e9ac4b68aa488575f6cfb34c')
                 .then(response => {
                     coord = response.data.results[0].geometry;
-                    post_doc.coordinates = [coord.lng, coord.lat];
+                    post.coordinates = {
+                        "type": "Point",
+                        "coordinates": [coord.lng, coord.lat]
+                    };
                     post_doc.save(function(err) {
                         console.log("saved");
                         if (err) res.json(err);

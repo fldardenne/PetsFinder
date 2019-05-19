@@ -7,10 +7,12 @@ var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res) {
+
     var posts_g = [];
     let promises = []; // The rendering must be executed after the foreach loop. 
-    Post.find({}, (err, posts)=> {
 
+    Post.find({}, (err, posts)=> {
+        //Adding useful information for each posts about the author and the relative date from the posts
         posts.forEach(function(p){
             var doc_acc = User.findById(p.author);
                 promises.push(doc_acc);
@@ -22,10 +24,10 @@ router.get('/', function(req, res) {
                     temp.date =  moment(p.date).fromNow();
                     posts_g.push(temp);
                 })  
-        });
-        
-             
-    }).then(function(value){
+        });   
+    })
+    //When all the usefull information are added, we render the search
+    .then(function(value){
         Promise.all(promises)
         .then((result) => {
             res.render('home/index', {
@@ -33,12 +35,14 @@ router.get('/', function(req, res) {
                 session: req.session,
                 city: '',
                 center: [4.61,50.69],
-                zoom: 8
+                radius: 0,
+                zoom: 8,
             });  
         })
         
         
     })
+      
 });
 
 module.exports = router;

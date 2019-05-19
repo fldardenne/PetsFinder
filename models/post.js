@@ -46,7 +46,8 @@ var postSchema = new mongoose.Schema({
         default:Date.now
     },
     coordinates: {
-        type: [Number]
+        type: {type: String},
+        coordinates: [Number]
     },
     description: String,
     found:Boolean,
@@ -54,7 +55,7 @@ var postSchema = new mongoose.Schema({
     
   
 });
-
+postSchema.index({"coordinates": "2dsphere"});
 var Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

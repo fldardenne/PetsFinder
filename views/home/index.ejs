@@ -3,17 +3,9 @@
     <head>
         <% include ../layout/meta %>
         <script src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+        
         <link href='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
-        <style>
-          .marker {
-            background-image: url('https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png');
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-          }
-        </style>
+        
     </head>
 
     <body>
@@ -22,8 +14,8 @@
 
         <!-- Form for searching a specific location-->
         <form method="GET" action="/search">
-          <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search by location" value="<%= city %>" name="city" aria-label="Search by location">
+          <div class="input-group mb-4">
+              <input type="text" class="form-control" id="city" placeholder="Search by location" value="<%= city %>" name="city" aria-label="Search by location">
               <div class="input-group-append">
                 <% if (radius == 0) { %>
                   <input class="form-control" type="number" placeholder="range (km)"  name="range">
@@ -69,6 +61,8 @@
         </script>
 
         <!-- Here is where all the magic about the map happens -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.4"></script>
         <script type="text/javascript" src="/js/maps.js"></script>
+        
     </body>
 </html>

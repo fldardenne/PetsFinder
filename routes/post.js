@@ -141,7 +141,7 @@ router.post('/edit/:postID', (req,res) => {
                 axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.body.location+'&key=be981c22e9ac4b68aa488575f6cfb34c')
                 .then(response => {
                     coord = response.data.results[0].geometry;
-                    post.coordinates = {
+                    post_doc.coordinates = {
                         "type": "Point",
                         "coordinates": [coord.lng, coord.lat]
                     };

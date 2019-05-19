@@ -2,6 +2,18 @@
 <html>
     <head>
         <% include ../layout/meta %>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+        <style>
+          .marker {
+            background-image: url('https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+        </style>
     </head>
 
     <body>
@@ -36,5 +48,35 @@
             Cat/Dogs: <%= post.tags %>
             <hr>
         <% }); %>
+
+        <div id='map' style='width: 800; height: 800px;'></div>
+        <script>
+          mapboxgl.accessToken = 'MAPBOX_API_KEY';
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [<%=center%>],
+            zoom: <%=zoom%>
+          });
+          
+          <% posts.forEach((post) => { %>
+            var el = document.createElement('div');
+            el.className = 'marker';
+            new mapboxgl.Marker(el)
+            .setLngLat([<%=post.coordinates%>])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                '<h3>' + '<%= post.petname %>' + '</h3><p>'
+                  + '<img src="<%= post.thumbnail %>" alt="" width="100" height="100"> <br>'
+                 + '<%= post.description %>' + '</p>'
+                 + '<b> Author: </b> <%= post.username %> <br>'
+                 + '<b> Phone:</b> <%=post.phone%> <br>'
+                 + '<b> Mail: </b> <%=post.mail%> <br>'
+
+                 
+                ))
+            .addTo(map);
+          <% }); %>
+        </script>
     </body>
 </html>

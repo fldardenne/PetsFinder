@@ -45,6 +45,9 @@ var postSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
+    coordinates: {
+        type: [Number]
+    },
     description: String,
     found:Boolean,
     tags: String,

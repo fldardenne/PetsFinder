@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 let Post = require('../models/post');
 let User = require('../models/user');
+var axios = require('axios');
+var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -28,7 +30,9 @@ router.get('/', function(req, res) {
             res.render('home/index', {
                 posts:posts_g,
                 session: req.session,
-                city: ''
+                city: '',
+                center: [4.61,50.69],
+                zoom: 8
             });  
         })
         

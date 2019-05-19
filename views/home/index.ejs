@@ -7,6 +7,15 @@
     <body>
         <% include ../layout/header %>
 
+        <form method="GET" action="/search">
+          <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search by city" value="<%= city %>" name="city" aria-label="Search by city">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </div>
+            </div>
+        </form>
+
         <% posts.forEach((post) => { %>
             
             <h3><%= post.petname %></h3>

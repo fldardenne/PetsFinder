@@ -3,12 +3,15 @@ var router = express.Router();
 let Post = require('../models/post');
 let User = require('../models/user');
 
-/* GET home page. */
+
 router.get('/', function(req, res) {
     var posts_g = [];
-    let promises = []; // The rendering must be executed after the foreach loop. 
-    Post.find({}, (err, posts)=> {
-
+    let promises = []; // The rendering must be executed after the foreach loop.
+    if(req.query.city.length == 0){
+        res.redirect("/");
+        return;
+    }
+    Post.find({'location': {$regex : '(?i)' + req.query.city}}, (err, posts)=> {
         posts.forEach(function(p){
             var doc_acc = User.findById(p.author);
                 promises.push(doc_acc);
@@ -28,7 +31,7 @@ router.get('/', function(req, res) {
             res.render('home/index', {
                 posts:posts_g,
                 session: req.session,
-                city: ''
+                city: req.query.city
             });  
         })
         

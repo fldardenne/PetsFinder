@@ -10,6 +10,7 @@ var sessionverif = require('./middleware/sessionverif')
 
 // Routes
 var homeRouter = require('./routes/home');
+var searchRouter = require('./routes/search');
 var postRouter = require('./routes/post');
 var authRouter = require('./routes/auth');
 var userRouter = require('./routes/user');
@@ -40,6 +41,7 @@ app.use('/phone', sessionverif.sessionRedirect);
 
 //  Route
 app.use('/', homeRouter);
+app.use('/search', searchRouter);
 app.use('/post', postRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);

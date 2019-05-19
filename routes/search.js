@@ -8,7 +8,7 @@ var moment = require('moment');
 router.get('/', function(req, res) {
     var posts_g = [];
     let promises = []; // The rendering must be executed after the foreach loop.
-    
+
     if(req.query.city.length == 0){
         res.redirect("/");
         return;
@@ -17,12 +17,13 @@ router.get('/', function(req, res) {
     if(req.query.range.length > 0){
         range = req.query.range;
     }
-
     //Call API for translating the location into geocode
-    axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.query.city+'&key=be981c22e9ac4b68aa488575f6cfb34c')
-    .then(response => {
-        coord_dict = response.data.results[0].geometry;
-        coord_list = [coord_dict.lng, coord_dict.lat];
+    axios.post('https://places-dsn.algolia.net/1/places/query', {
+        query: req.query.city,
+    })
+    .then(function (response) {
+        coord = response.data.hits[0]._geoloc;
+        coord_list = [coord.lng, coord.lat];
         //We search into the database for posts near the location
         var aggregation = Post.aggregate([
             {
@@ -67,7 +68,10 @@ router.get('/', function(req, res) {
                     });  
                 })
             })
-        })           
-    });
-
+        }) .catch(function (error) {
+            console.log(error)
+            res.redirect('/')
+        });
+    })
+   
 module.exports = router;

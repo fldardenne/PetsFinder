@@ -59,20 +59,28 @@ router.post('/create', (req,res) => {
             }
             post.tags = req.body.tags;
             post.thumbnail = "/uploads/" + req.file.filename;
-            axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.body.location+'&key=be981c22e9ac4b68aa488575f6cfb34c')
-            .then(response => {
-                coord = response.data.results[0].geometry;
-                post.coordinates = {
-                    "type": "Point",
-                    "coordinates": [coord.lng, coord.lat]
-                };
-                post.save(function(err) {
-                    console.log("saved");
-                    if (err) res.json(err);
-    
-                    res.redirect('/');
+            axios.post('https://places-dsn.algolia.net/1/places/query', {
+                    query: req.body.location,
+            })
+            .then(function (response) {
+                coord = response.data.hits[0]._geoloc;
+                    post.coordinates = {
+                        "type": "Point",
+                        "coordinates": [coord.lng, coord.lat]
+                    };
+                    post.save(function(err) {
+                        console.log("saved");
+                        if (err) res.json(err);
+        
+                        res.redirect('/post');
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    res.redirect('/')
                 });
-            });
+
+            
             
 
             
@@ -138,9 +146,11 @@ router.post('/edit/:postID', (req,res) => {
                     post_doc.thumbnail = "/uploads/" + req.file.filename;
                 }
 
-                axios.get('https://api.opencagedata.com/geocode/v1/json?q='+req.body.location+'&key=be981c22e9ac4b68aa488575f6cfb34c')
-                .then(response => {
-                    coord = response.data.results[0].geometry;
+                axios.post('https://places-dsn.algolia.net/1/places/query', {
+                    query: req.body.location,
+                })
+                .then(function (response) {
+                    coord = response.data.hits[0]._geoloc;
                     post_doc.coordinates = {
                         "type": "Point",
                         "coordinates": [coord.lng, coord.lat]
@@ -151,6 +161,10 @@ router.post('/edit/:postID', (req,res) => {
         
                         res.redirect('/post');
                     });
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    res.redirect('/')
                 });
             })
             

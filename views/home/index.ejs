@@ -23,7 +23,7 @@
         <!-- Form for searching a specific location-->
         <form method="GET" action="/search">
           <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search by city" value="<%= city %>" name="city" aria-label="Search by location">
+              <input type="text" class="form-control" placeholder="Search by location" value="<%= city %>" name="city" aria-label="Search by location">
               <div class="input-group-append">
                 <% if (radius == 0) { %>
                   <input class="form-control" type="number" placeholder="range (km)"  name="range">
@@ -34,6 +34,9 @@
               </div>
             </div>
         </form>
+
+        <!-- The map -->
+        <div id='map' style='width: 500px; height: 500px;'></div>
 
 
         <!-- Each post, left sidebar-->
@@ -56,10 +59,6 @@
             Cat/Dogs: <%= post.tags %>
             <hr>
         <% }); %>
-
-
-        <!-- The map -->
-        <div id='map' style='width: 800; height: 800px;'></div>
 
         <!-- Define variables for the map -->
         <script>

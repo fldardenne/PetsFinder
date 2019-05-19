@@ -3,6 +3,7 @@ var router = express.Router();
 let Post = require('../models/post');
 let User = require('../models/user');
 var axios = require('axios');
+var moment = require('moment');
 
 router.get('/', function(req, res) {
     var posts_g = [];
@@ -20,6 +21,7 @@ router.get('/', function(req, res) {
                     temp.username = value.username;
                     temp.phone = value.phone;
                     temp.mail = value.mail;
+                    temp.date =  moment(p.date).fromNow();
                     posts_g.push(temp);
                 })  
         });

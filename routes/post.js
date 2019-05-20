@@ -5,6 +5,8 @@ let User = require('../models/user')
 var path = require('path');
 var moment = require('moment');
 const axios = require('axios');
+var validator = require('validator');
+var moment = require('moment');
 
 //upload image
 const multer = require("multer");
@@ -19,6 +21,26 @@ const upload = multer({
 }).single('thumbnail');
 // end upload image
 
+function formPostValidator(petname, date, description, found, tag){
+    if(petname.length >= 20 || petname.length <= 1){
+        console.log(petname);
+        return [false, "Pet name must be greater than 1 and less than 20"];
+    }
+    if(!moment(date, "DD-MM-YYYY").isValid()){
+        return [false, "Bad date format"];
+    }
+    if(tag != "Dog" && tag != "Cat"){
+        return [false, "Bad species"];
+    }
+    if(found != "Found" && found != "Lost"){
+        return [false, "Invalid found state"];
+    }
+    if(description.length > 280){
+        return [false, "Description length must be <= 280"];
+    }
+    
+    return [true, ''];
+}
 // The user posts list
 router.get('/', (req, res) => {
     User.find({'mail': req.session.mail}, (err, acc_doc) => {
@@ -45,6 +67,13 @@ router.post('/create', (req,res) => {
         if(err){
             req.session.error('Error: Your post was not created');
             res.redirect('/');
+        }
+        validator = formPostValidator(req.body.petname, req.body.date_lost, req.body.description, req.body.found, req.body.tags);
+        if(!validator[0]){
+            console.log("error");
+            req.session.error = validator[1];
+            res.redirect('/post/create');
+            return;
         }
         User.findOne({mail: req.session.mail}, (err, doc_acc) => {
             var post = new Post();

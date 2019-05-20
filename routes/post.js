@@ -111,7 +111,7 @@ router.post('/create', (req,res) => {
                     });
                 })
                 .catch(function (error) {
-                    req.session.error = "Error, no connection to Algolia";
+                    req.session.error = "Bad place";
                     res.redirect('/post/create')
                 });  
         });
@@ -160,6 +160,13 @@ router.post('/edit/:postID', (req,res) => {
             req.session.alert = "Error";
             res.redirect('/post/');
         }
+        validator = formPostValidator(req.body.petname, req.body.date_lost, req.body.description, req.body.found, req.body.tags);
+        if(!validator[0]){
+            console.log("error");
+            req.session.error = validator[1];
+            res.redirect('/post/edit/' + req.params.postID);
+            return;
+        }
         User.findOne({mail: req.session.mail}, (err, doc_acc) => {
             Post.findById(req.params.postID, (err, post_doc) => {
                 
@@ -194,7 +201,7 @@ router.post('/edit/:postID', (req,res) => {
                     });
                 })
                 .catch(function (error) {
-                    req.session.error = "Error cannot connect to Algolia";
+                    req.session.error = "Bad place";
                     res.redirect('/post/edit/'+ req.params.postID);
                 });
             })

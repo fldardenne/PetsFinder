@@ -82,8 +82,8 @@ router.post('/create', (req,res) => {
                     });
                 })
                 .catch(function (error) {
-                    req.session.error = "Error";
-                    res.redirect('/post')
+                    req.session.error = "Error, no connection to Algolia";
+                    res.redirect('/post/create')
                 });  
         });
 
@@ -99,7 +99,7 @@ router.get('/delete/:postID', (req, res) => {
                 req.session.alert = "Successfully removed";
                 res.redirect('/post');
             }else{
-                req.session.alert = "Not your post";
+                req.session.error = "Error: this is not your post";
                 res.redirect('/post');
             }
         })
@@ -118,7 +118,7 @@ router.get('/edit/:postID', (req, res) => {
                     alert: req.alert
                 });
             }else{
-                req.session.alert = "Not your post";
+                req.session.alert = "Error: this is not your post";
                 res.redirect('/post');
             }
         })
@@ -129,7 +129,7 @@ router.post('/edit/:postID', (req,res) => {
     upload(req,res,(err) => {
         if(err){
             req.session.alert = "Error";
-            res.redirect('/post');
+            res.redirect('/post/');
         }
         User.findOne({mail: req.session.mail}, (err, doc_acc) => {
             Post.findById(req.params.postID, (err, post_doc) => {
@@ -165,8 +165,8 @@ router.post('/edit/:postID', (req,res) => {
                     });
                 })
                 .catch(function (error) {
-                    req.session.alert = "Error fetching API";
-                    res.redirect('/post')
+                    req.session.error = "Error cannot connect to Algolia";
+                    res.redirect('/post/edit/'+ req.params.postID);
                 });
             })
             

@@ -50,6 +50,11 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     user = new User();
+    if(req.body.password.length < 6){
+        req.session.error = "The length of the password must be greater than 5 character"
+        res.redirect('/auth/register');
+        return;
+    }
     bcrypt.hash(req.body.password, 10, function(err, hash) {
 
         user.password = hash;

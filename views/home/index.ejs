@@ -83,7 +83,11 @@
                                                 <div class="row no-gutters">
                                                     <div class="col-md-4">
                                                         <img src="<%= post.thumbnail %>" class="card-img">
-                                                        <span class="badge badge-danger">Lost</span>
+                                                        <% if(post.found){ %>
+                                                            <span class="badge badge-primary">Found</span>
+                                                        <% }else{ %>
+                                                            <span class="badge badge-danger">Lost</span>
+                                                        <% } %>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">

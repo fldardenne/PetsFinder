@@ -29,7 +29,7 @@ function formPostValidator(petname, date, description, found, tag){
     if(!moment(date, "DD-MM-YYYY").isValid()){
         return [false, "Bad date format"];
     }
-    if(tag != "Dog" && tag != "Cat"){
+    if(tag != "Dog" && tag != "Cat" && tag != "Budgie"){
         return [false, "Bad species"];
     }
     if(found != "Found" && found != "Lost"){

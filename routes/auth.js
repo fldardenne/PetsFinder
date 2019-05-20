@@ -70,8 +70,8 @@ router.post('/register', (req, res) => {
         return;
     }
 
-    if(req.body.name.length >= 10){
-        req.session.error = "Invalid username, must be < 10";
+    if(req.body.name.length >= 20){
+        req.session.error = "Invalid username, must be < 20";
         res.redirect('/auth/register');
         return;
     }

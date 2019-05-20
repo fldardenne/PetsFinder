@@ -12,6 +12,16 @@
                 <div class="col-lg-6 col-md-8">
                     <h1>Login</h1>
 
+                    <% if (alert.success) {%>
+                        <div class="alert alert-success">
+                            <%= alert.success %>
+                        </div>
+                        <%}%>
+                        <% if (alert.error) {%>
+                            <div class="alert alert-danger">
+                                <%= alert.error %>
+                            </div>
+                        <%}%>
                     <hr>
 
                     <form method="POST" action="/auth/login">

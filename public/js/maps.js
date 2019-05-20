@@ -1,3 +1,4 @@
+//Transform a center and radius into a circle in GeoJson
 var createGeoJSONCircle = function(center, radiusInKm, points) {
   //Source : https://stackoverflow.com/questions/37599561/drawing-a-circle-with-the-radius-in-miles-meters-with-mapbox-gl-js/37794326
   if(!points) points = 64;
@@ -38,6 +39,15 @@ var createGeoJSONCircle = function(center, radiusInKm, points) {
   };
 };
 
+var placesAutocomplete = places({
+    appId: 'ALGOLIA_APP_ID_KEY',
+    apiKey: 'ALGOLIA_API_KEY',
+    container: document.querySelector('#city'),
+});
+
+placesAutocomplete.configure({
+    useDeviceLocation: false
+});
 
 mapboxgl.accessToken = 'MAPBOX_API_KEY';
 var map = new mapboxgl.Map({

@@ -11,6 +11,17 @@
                 <div class="col-lg-6 col-md-8">
                     <h1>Add post</h1>
 
+                    <% if (alert.success) {%>
+                        <div class="alert alert-success">
+                            <%= alert.success %>
+                        </div>
+                        <%}%>
+                        <% if (alert.error) {%>
+                            <div class="alert alert-danger">
+                                <%= alert.error %>
+                            </div>
+                        <%}%>
+
                     <hr>
 
                     <form method="POST" action="/post/create" enctype="multipart/form-data">
@@ -41,10 +52,6 @@
                             
                             <div class="form-group row">
                                 <label for="pet_picture" class="col-sm-3 col-form-label">Picture</label>
-                                <input type="file" accept="image/*" name="thumbnail">
-                                <!--
-                                A corriger, ne fonctionne pas 
-                                
                                 <div class="col-sm-9 my-auto">
                                     <div class="custom-file">
                                         
@@ -53,7 +60,6 @@
                                         <label class="custom-file-label" for="pet_picture">Choose file</label>
                                     </div>
                                 </div>
-                                -->
                             </div>
 
                             <div class="form-group row">
@@ -96,5 +102,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- For the location autocomplete-->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.16.4"></script>
+        <script>
+            var placesAutocomplete = places({
+                appId: 'ALGOLIA_APP_ID_KEY',
+                apiKey: 'ALGOLIA_API_KEY',
+                container: document.querySelector('#location'),
+            });
+        </script>
     </body>
 </html>

@@ -16,6 +16,7 @@ router.post('/delete', (req,res) => {
         Post.find({author:acc_doc}).deleteMany().then(function(value) {
             User.find({mail: req.session.mail}).deleteOne().then(function(value){
                 req.session.mail = '';
+                req.session.alert = 'Account and posts deleted';
                 req.session.save((err) => {
                     res.redirect('/');
                 })

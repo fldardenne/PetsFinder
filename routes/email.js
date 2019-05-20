@@ -9,7 +9,8 @@ router.get('/edit', (req, res) => {
     User.findOne({mail: req.session.mail}, (err, doc_acc) => {
         res.render('email/edit', {
             session: req.session,
-            mail: doc_acc.mail
+            mail: doc_acc.mail,
+            alert: req.alert
         })
     })
     
@@ -21,10 +22,8 @@ router.post('/edit', (req, res) => {
         req.session.mail = req.body.mail;
         req.session.save(function(value){
             doc_acc.save(function(value){
-                res.render('email/edit', {
-                    session: req.session,
-                    mail: doc_acc.mail
-                });
+                req.session.alert = "Successfully updated"
+                res.redirect('/email/edit')
             });
         })  
     })

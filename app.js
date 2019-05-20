@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 const session = require('express-session');
 var sessionverif = require('./middleware/sessionverif')
+var alertmanager = require('./middleware/alert')
 
 // Routes
 var homeRouter = require('./routes/home');
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'fakepassword', resave: false, saveUninitialized: true }));
+app.use(alertmanager.alertManager);
 
 // Middleware protecting route that require authentification
 app.use('/post', sessionverif.sessionRedirect);
@@ -48,8 +50,6 @@ app.use('/user', userRouter);
 app.use('/email', emailRouter);
 app.use('/password', passwordRouter);
 app.use('/phone', phoneRouter);
-
-
 
 
 // catch 404 and forward to error handler

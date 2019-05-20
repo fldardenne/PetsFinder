@@ -33,6 +33,7 @@ router.get('/', function(req, res) {
             res.render('home/index', {
                 posts:posts_g,
                 session: req.session,
+                alert: req.alert,
                 city: '',
                 center: [4.61,50.69],
                 radius: 0,

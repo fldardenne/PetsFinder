@@ -3,6 +3,9 @@ let router = express.Router();
 User = require('../models/user');
 require('../config/passport');
 const bcrypt = require('bcrypt');
+var validator = require('validator');
+ 
+
 
 router.get('/login', (req, res) => {
     res.render('auth/create', {
@@ -44,7 +47,8 @@ router.post('/login', (req, res) => {
 
 router.get('/register', (req, res) => {
     res.render('user/create',{
-        session: req.session
+        session: req.session,
+        alert: req.alert
     });
 })
 
@@ -55,19 +59,51 @@ router.post('/register', (req, res) => {
         res.redirect('/auth/register');
         return;
     }
-    bcrypt.hash(req.body.password, 10, function(err, hash) {
 
-        user.password = hash;
-        user.mail = req.body.email;
-        user.phone = req.body.phone;
-        user.username = req.body.name;
-    
-        user.save((err) => {
-            req.session.mail = req.body.email;
-            req.session.save( (err) => {
-                res.redirect('/');
+    if(!validator.isEmail(req.body.email)){
+        req.session.error = "Invalid mail format: must be in user@domain.be"
+        res.redirect('/auth/register');
+        return;
+    }
+    if(isNaN(req.body.phone) || req.body.phone.length <= 8){
+        req.session.error = "Invalid phone format: only numbers and must be > 7";
+        res.redirect('/auth/register');
+        return;
+    }
+
+    if(req.body.name.length >= 10){
+        req.session.error = "Invalid username, must be < 10";
+        res.redirect('/auth/register');
+        return;
+    }
+    if(!req.body.check){
+        req.session.error = "terms and conditions are not accepted";
+        res.redirect('/auth/register');
+        return;
+    }
+
+    User.find({mail : req.body.email}, function (err, docs) {
+        if(docs.length){
+            req.session.error = "This mail is already taken";
+            res.redirect('/auth/register');
+            return;
+        }
+
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+
+            user.password = hash;
+            user.mail = req.body.email;
+            user.phone = req.body.phone;
+            user.username = req.body.name;
+        
+            user.save((err) => {
+                req.session.mail = req.body.email;
+                req.session.save( (err) => {
+                    res.redirect('/');
+                })
             })
-        })
+        });
+
     });
 })
 

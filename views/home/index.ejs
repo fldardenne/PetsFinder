@@ -27,6 +27,17 @@
             </div>
         </form>
 
+        <% if (alert.success) {%>
+          <div class="alert alert-success">
+              <%= alert.success %>
+          </div>
+          <%}%>
+          <% if (alert.error) {%>
+              <div class="alert alert-danger">
+                  <%= alert.error %>
+              </div>
+        <%}%>
+
         <!-- The map -->
         <div id='map' style='width: 500px; height: 500px;'></div>
 

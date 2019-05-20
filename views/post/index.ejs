@@ -12,6 +12,16 @@
                 Posts
                 <a class="btn btn-success float-right" href="/post/create" role="button">Add post</a>
             </h1>
+            <% if (alert.success) {%>
+            <div class="alert alert-success">
+                <%= alert.success %>
+            </div>
+            <%}%>
+            <% if (alert.error) {%>
+                <div class="alert alert-error">
+                    <%= alert.error %>
+                </div>
+            <%}%>
 
             <% if (post.length == 0) { %>
             <hr>

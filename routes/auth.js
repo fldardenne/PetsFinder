@@ -6,13 +6,15 @@ const bcrypt = require('bcrypt');
 
 router.get('/login', (req, res) => {
     res.render('auth/create', {
-        session: req.session
+        session: req.session,
+        alert: req.alert
     })
 })
   
 router.post('/login', (req, res) => {
     User.findOne({mail: req.body.email}, (err,doc_acc) => {
         if (doc_acc == null){
+            req.session.error = "Wrong creditential !";
             res.redirect('/auth/login');
         }else{
             bcrypt.compare(req.body.password, doc_acc.password, function(err, rescrypt) {
@@ -30,7 +32,7 @@ router.post('/login', (req, res) => {
                         }
                   });
                 } else {
-                    console.log("\x1b[36m%s\x1b[0m", "[Auth] " + req.body.mail + " failed");
+                    req.session.error = "Wrong creditential !";
                     res.redirect('/auth/login');
                 }
           

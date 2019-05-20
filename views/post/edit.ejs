@@ -11,6 +11,17 @@
                 <div class="col-lg-6 col-md-8">
                     <h1>Edit post</h1>
 
+                    <% if (alert.success) {%>
+                        <div class="alert alert-success">
+                            <%= alert.success %>
+                        </div>
+                        <%}%>
+                        <% if (alert.error) {%>
+                            <div class="alert alert-error">
+                                <%= alert.error %>
+                            </div>
+                        <%}%>
+
                     <hr>
 
                     <form method="POST" action="/post/edit/<%= post.id %>" enctype="multipart/form-data">

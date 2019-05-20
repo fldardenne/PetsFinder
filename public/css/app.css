@@ -1,5 +1,81 @@
+html, body { height: 100%; }
 body { padding-top: 56px; }
 h1 > a { margin-top: 5px; }
 th, td { vertical-align: middle !important; }
 
 .container { margin-top: 24px; }
+.custom-container-fluid {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+}
+.no-gutters {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.custom-row {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    bottom: 0;
+    right: 0;
+}
+
+.custom-scroll-col-4 {
+    flex-flow: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+.custom-scroll-row {
+    flex-flow: column;
+    height: calc(100% - 53px - 33px);
+}
+.custom-scroll-col-12 {
+    flex-flow: column;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.custom-scroll-col-12::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.btn-search {
+    margin-top: 15px;
+}
+
+.card { margin-bottom: 15px; }
+.card:hover { cursor: pointer; }
+
+.card .badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.custom-modal-body img{
+    width: 100%;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.marker {
+    background-image: url('https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}

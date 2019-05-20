@@ -2,73 +2,207 @@
 <html>
     <head>
         <% include ../layout/meta %>
-        <script src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
-        <link href='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
-        <style>
-          .marker {
-            background-image: url('https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png');
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-          }
-        </style>
     </head>
 
     <body>
         <% include ../layout/header %>
 
+        <div class="custom-container-fluid">
+            <div class="row custom-row">
+                <div class="col-4 custom-scroll-col-4">
+                    <!-- Search -->
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-success btn-block btn-search" data-toggle="modal" data-target="#searchModal">Recherche</button>
 
-        <!-- Form for searching a specific location-->
-        <form method="GET" action="/search">
-          <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search by location" value="<%= city %>" name="city" aria-label="Search by location">
-              <div class="input-group-append">
-                <% if (radius == 0) { %>
-                  <input class="form-control" type="number" placeholder="range (km)"  name="range">
-                <%}else{%>
-                  <input class="form-control" type="number" placeholder="range (km)" value="<%= radius %>" name="range">
-                <%}%>
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-              </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Recherche</h5>
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form method="GET" action="/search" id="searchForm">
+                                                <div class="form-group row">
+                                                    <label for="city" class="col-sm-3 col-form-label">Location</label>
+                                                    <div class="col-sm-9 my-auto">
+                                                        <input type="text" class="form-control" id="city" name="city" value="<%= city %>" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="range" class="col-sm-3 col-form-label">Range</label>
+                                                    <div class="col-sm-9 my-auto">
+                                                        <div class="input-group">
+                                                            <% if (radius == 0) { %>
+                                                                <input class="form-control" min=0 type="number" id="range" name="range">
+                                                            <%}else{%>
+                                                                <input class="form-control" min=0 type="number" id="range" value="<%= radius %>" name="range">
+                                                            <%}%>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">km</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-dismiss="modal">Annuler</button>
+                                            <button type="button" class="btn btn-success" id="searchSubmit">Rechercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Cards -->
+                    <div class="row custom-scroll-row">
+                        <div class="col-12 custom-scroll-col-12">
+                            <% posts.forEach((post) => { %>
+                                <h3><%= post.petname %></h3>
+                                <img src="<%= post.thumbnail %>" alt="" width="100" height="100"> <br>
+                                Author: <%= post.username %> <br>
+                                Phone: <%= post.phone %> <br>
+                                Mail: <%= post.mail %> <br>
+                                Date : <%= post.date%> <br>
+                                Location :<%= post.location %><br>
+                                Description : <%= post.description %><br>
+                                Found or lost:
+                                <% if(post.found){ %>
+                                  Lost
+                                <% }else{ %>
+                                  found
+                                <% } %>
+                                <br>
+                                Cat/Dogs: <%= post.tags %>
+                                <hr>
+                            <% }); %>
+
+                            <% if (posts.length == 0) { %>
+                                <div class="alert alert-secondary" role="alert">
+                                    There are no posts to display.
+                                    Do you want to <a href="/post/create">add a post</a> ?
+                                </div>
+                            <% } else { %>
+                                <ul class="list-unstyled">
+                                    <% posts.forEach((post) => { %>
+                                        <li>
+                                            <!-- Card -->
+                                            <div class="card" data-toggle="modal" data-target=<%= "#cardModal" + post.id %>>
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4">
+                                                        <img src="<%= post.thumbnail %>" class="card-img">
+                                                        <span class="badge badge-danger">Lost</span>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><%= post.petname %></h5>
+                                                            <p class="card-text">
+                                                                <%= post.location %>
+                                                                <br>
+                                                                <small class="text-muted"><%= post.date%></small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-footer text-center">More information</div>
+                                            </div>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id=<%= "cardModal" + post.id %> tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="cardModalLabel">Information</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body custom-modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-4">
+                                                                        <img src="<%= post.thumbnail %>">
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                        <dl class="row">
+                                                                            <dt class="col-sm-4">Pet's name</dt>
+                                                                            <dd class="col-sm-8"><%= post.petname %></dd>
+
+                                                                            <dt class="col-sm-4">Description</dt>
+                                                                            <dd class="col-sm-8"><%= post.description %></dd>
+
+                                                                            <dt class="col-sm-4">Location</dt>
+                                                                            <dd class="col-sm-8"><%= post.location %></dd>
+
+                                                                            <dt class="col-sm-4">Last seen</dt>
+                                                                            <dd class="col-sm-8"><%= post.date %></dd>
+
+                                                                            <dt class="col-sm-4">Status</dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <% if(post.found){ %>
+                                                                                    <span class="badge badge-danger">Lost</span>
+                                                                                <% }else{ %>
+                                                                                    <span class="badge badge-primary">Found</span>
+                                                                                <% } %>
+                                                                            </dd>
+
+                                                                            <dt class="col-sm-4">Tag</dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <span class="badge badge-secondary"><%= post.tags %></span>
+                                                                            </dd>
+                                                                        </dl>
+
+                                                                        <hr>
+
+                                                                        <dl class="row">
+                                                                            <dt class="col-sm-4">Owner</dt>
+                                                                            <dd class="col-sm-8"><%= post.username %></dd>
+
+                                                                            <dt class="col-sm-4">Phone number</dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <a href=<%= "tel:" + post.phone %>><%= post.phone %></a>
+                                                                            </dd>
+
+                                                                            <dt class="col-sm-4">Email</dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <a href=<%= "mailto:" + post.mail %>><%= post.mail %></a>
+                                                                            </dd>
+                                                                        </dl>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <% }); %>
+                                </ul>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8 no-gutters">
+                    <div class='map' id='map'></div>
+                </div>
             </div>
-        </form>
+        </div>
 
-        <!-- The map -->
-        <div id='map' style='width: 500px; height: 500px;'></div>
-
-
-        <!-- Each post, left sidebar-->
-        <% posts.forEach((post) => { %>
-            <h3><%= post.petname %></h3>
-            <img src="<%= post.thumbnail %>" alt="" width="100" height="100"> <br>
-            Author: <%= post.username %> <br>
-            Phone: <%= post.phone %> <br>
-            Mail: <%= post.mail %> <br>
-            Date : <%= post.date%> <br>
-            Location :<%= post.location %><br>
-            Description : <%= post.description %><br>
-            Found or lost: 
-            <% if(post.found){ %>
-              Lost 
-            <% }else{ %>
-              found
-            <% } %>
-            <br>
-            Cat/Dogs: <%= post.tags %>
-            <hr>
-        <% }); %>
-
-        <!-- Define variables for the map -->
-        <script>
-          var center =  [<%=center%>];
-          var zoom = <%=zoom%>;
-          var radius =  [<%=radius%>];
-          var posts = <%- JSON.stringify(posts) %>
-        </script>
-
-        <!-- Here is where all the magic about the map happens -->
-        <script type="text/javascript" src="/js/maps.js"></script>
+        <% include ../layout/script %>
     </body>
 </html>

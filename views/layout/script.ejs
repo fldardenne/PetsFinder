@@ -1,0 +1,13 @@
+<!-- Custom JS -->
+<script src="/js/app.js"></script>
+
+<!-- Define variables for the map -->
+<script>
+  var center =  [<%=center%>];
+  var zoom = <%=zoom%>;
+  var radius =  [<%=radius%>];
+  var posts = <%- JSON.stringify(posts) %>
+</script>
+
+<!-- Here is where all the magic about the map happens -->
+<script src="/js/maps.js"></script>

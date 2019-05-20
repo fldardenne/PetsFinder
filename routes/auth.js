@@ -112,4 +112,12 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
+router.get('/terms', (req,res) => {
+    res.render('auth/terms',
+        {
+            session: req.session
+        }
+    )
+})
+
 module.exports = router;

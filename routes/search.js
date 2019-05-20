@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
             {
                 "$geoNear": {
                     "near": {
-                        "types": "Point",
+                        "type": "Point",
                         "coordinates": coord_list
                     },
                     "distanceField": "distance",

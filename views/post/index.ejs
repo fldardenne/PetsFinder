@@ -30,9 +30,8 @@
                     There are no posts to display.
                     Do you want to <a href="/post/create">add a post</a> ?
                 </div>
-            <% } %>
-
-            <table class="table table-borderless table-hover">
+            <% } else { %>
+                <table class="table table-borderless table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -43,7 +42,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <% post.forEach((post) => { %>
                         <tr>
@@ -66,6 +65,7 @@
                     <% }); %>
                 </tbody>
             </table>
+            <% } %>
         </div>
     </body>
 </html>

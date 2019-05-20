@@ -9,7 +9,7 @@ var moment = require('moment');
 router.get('/', function(req, res) {
 
     var posts_g = [];
-    let promises = []; // The rendering must be executed after the foreach loop. 
+    let promises = []; // The rendering must be executed after the foreach loop.
 
     Post.find({}, (err, posts)=> {
         //Adding useful information for each posts about the author and the relative date from the posts
@@ -23,8 +23,8 @@ router.get('/', function(req, res) {
                     temp.mail = value.mail;
                     temp.date =  moment(p.date).fromNow();
                     posts_g.push(temp);
-                })  
-        });   
+                })
+        });
     })
     //When all the usefull information are added, we render the search
     .then(function(value){
@@ -38,12 +38,9 @@ router.get('/', function(req, res) {
                 center: [4.61,50.69],
                 radius: 0,
                 zoom: 8,
-            });  
+            });
         })
-        
-        
     })
-      
 });
 
 module.exports = router;

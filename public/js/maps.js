@@ -62,6 +62,7 @@ map.on('load', function() {
 
 map.addLayer({
     "id": "polygon",
+    "interactive": true,
     "type": "fill",
     "source": "polygon",
     "layout": {},
@@ -73,19 +74,14 @@ map.addLayer({
 });
 
 posts.forEach((post) => {
-  var el = document.createElement('div');
-  el.className = 'marker';
-  new mapboxgl.Marker(el)
-  .setLngLat(post.coordinates.coordinates)
-  .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-    .setHTML(
-      '<h3>' + post.petname + '</h3><p>'
-        + '<img src="'+ post.thumbnail+'" alt="" width="100" height="100"> <br>'
-       + '<p>' + post.description + '</p>'
-       + '<b> Author: </b>'+ post.username+'<br>'
-       + '<b> Phone:</b>'+ post.phone + '<br>'
-       + '<b> Mail: </b>' +  post.mail + '<br>'
-       + '<b> Date: </b>' + post.date
-      ))
-  .addTo(map);
+    var el = document.createElement('div');
+    el.className = 'marker';
+
+    new mapboxgl.Marker(el)
+        .setLngLat(post.coordinates.coordinates)
+        .addTo(map);
+
+    el.addEventListener('click', () => {
+        $('#cardModal' + post._id).modal('toggle')
+    });
 });

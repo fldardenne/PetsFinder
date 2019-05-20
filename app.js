@@ -24,7 +24,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-mongoose.connect('mongodb://localhost/mllnga', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/petsfinder', { useNewUrlParser: true });
 var db = mongoose.connection;
 app.use(logger('dev'));
 app.use(express.json());

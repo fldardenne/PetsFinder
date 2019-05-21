@@ -1,17 +1,19 @@
-# Pour démarrer le serveur
+![alt text](https://i.imgur.com/bdIR4ik.jpg)
 
-## Installer mongodb
+# To run the server
 
-sudo apt install mongodb
+## Install mongodb
 
-## Installer les dépendances
+```sudo apt install mongodb```
 
-npm install
+## Install dependency
 
-## Démarrer le serveur
+```npm install```
 
-npm start
+## Start the server
+
+```npm start```
 
 ## Port
 
-Le serveur se lance sur le port 3000 en localhost
+```port 3000```
